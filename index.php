@@ -2,6 +2,8 @@
 
 require_once "ShoppingCart.php";
 require_once "Item.php";
+require_once "Payment/BuyProduct.php";
+require_once "Payment/Customer.php";
 
 $cart = new ShoppingCart();
 $product = new Item(1,"Iphone", 41, 6);
@@ -10,9 +12,9 @@ $product3 = new Item(3,"Huawei Y6", 35, 10);
 $product4 = new Item(4,"Honor 10", 50, 10);
 
 //Dodavanje proizvoda
-$cartItem = $cart->addProduct($product); // Vraca objekat klase CartItem
-$cartItem->increaseQty(3); //Vraca true ukoliko je kolicina u opsegu dozvoljene kolicine, false ukoluiko nije
-$cart->addProduct($product2, 4); //Vraca objekat klase Cart item, moguce proslediti kolicinu kao dodatni parametar
+$cartItem = $cart->addProduct($product); // objekat klase CartItem
+$cartItem->increaseQty(3); // true ukoliko je kolicina u opsegu dozvoljene kolicine, false ukoluiko nije
+$cart->addProduct($product2, 4); // objekat klase Cart item, moguce proslediti kolicinu kao dodatni parametar
 $cart->addProduct($product3);
 $cart->addProduct($product4, 2);
 
@@ -33,7 +35,17 @@ echo "Total price: ".$cart->getTotal() ."$".PHP_EOL.PHP_EOL;
 
 
 
-//Lista proizvoda
-echo "List of Products:".PHP_EOL;
-echo $cart->showOrder();// Izlistava sve proizvode
+
+// Placanje sa  Visa , Mastercard, Paypal
+$customer = new Customer("John Smith", new PayPal());
+
+$customer->checkout($cart); //Preuzima odabrane proizvode
+$customer->getInvoice(); //Izdaje racun
+$paymentType = $customer->getPaymentType(); // Objekat  klase Mastercard,Visa ili PayPal
+$customer->payOrder($paymentType); // Placanje izabranom metodom..
+
+
+echo PHP_EOL;
+
+
 

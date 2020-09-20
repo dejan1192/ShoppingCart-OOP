@@ -44,14 +44,10 @@ class ShoppingCart
         }
     }
 
-    public function showOrder()
-    {
-        foreach($this->items as $item){
-            print($item->getProduct()->getTitle()." x".$item->getQty(). " - " . $item->getPRoduct()->getPrice() ."$".PHP_EOL);
-        }
-        print("-----------".PHP_EOL);
-        print("Total: ".$this->getTotal()."$");
+    public function getItems(){
+        return $this->items;
     }
+
 
 
 }
