@@ -42,7 +42,7 @@ echo "Total price: ".$cart->getTotal() ."$".PHP_EOL.PHP_EOL;
 $customer = new Customer("John Smith", new Mastercard());
 
 $customer->checkout($cart); //Preuzima odabrane proizvode
-$customer->getInvoice(); //Izdaje racun
+$customer->getInvoice(); // Racun
 $paymentType = $customer->getPaymentType(); // Instanca PaymentInterface-a
 $customer->payOrder($paymentType); // Placanje izabranom metodom..
 
